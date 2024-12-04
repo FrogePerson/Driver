@@ -1,4 +1,4 @@
-﻿
+
 // Lab2Dlg.h: файл заголовка
 //
 
@@ -42,4 +42,7 @@ public:
 	CEdit m_edt_sname;
 	CEdit m_edt_lname;
 	CListBox m_lst_log;
+	void print(LPCTSTR pstr);
+	void vprint(LPCTSTR pstr, va_list argptr);
+	void vprintErr(LPCTSTR pstr, va_list pargs);
 };
