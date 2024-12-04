@@ -1,4 +1,4 @@
-﻿
+
 // Lab2Dlg.cpp: файл реализации
 //
 
@@ -22,6 +22,40 @@ CLab2Dlg::CLab2Dlg(CWnd* pParent /*=nullptr*/)
 	: CDialogEx(IDD_LAB2_DIALOG, pParent)
 {
 	m_hIcon = AfxGetApp()->LoadIcon(IDR_MAINFRAME);
+}
+
+void CLab2Dlg::print(LPCTSTR pstr)
+{
+	m_lst_log.InsertString(-1, pstr);
+}
+
+void CLab2Dlg::vprint(LPCTSTR pstr, va_list pargs)
+{
+	wchar_t tmp[1024];
+	vswprintf(tmp, pstr, pargs);
+	m_lst_log.InsertString(-1, tmp);
+}
+
+void CLab2Dlg::vprintErr(LPCTSTR pstr, va_list pargs)
+{
+	wchar_t tmp[1024];
+	LPVOID lpMsgBuf;
+
+	vswprintf(tmp, pstr, pargs);
+
+	FormatMessage(
+		FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_FROM_SYSTEM,
+		NULL,
+		GetLastError(),
+		MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT), // Default language
+		(LPTSTR)&lpMsgBuf,
+		0,
+		NULL
+	);
+	wcscat(tmp, (wchar_t*)lpMsgBuf);
+
+	LocalFree(lpMsgBuf);
+	m_lst_log.InsertString(-1, tmp);
 }
 
 void CLab2Dlg::DoDataExchange(CDataExchange* pDX)
@@ -114,35 +148,55 @@ void CLab2Dlg::OnBnClickedBtnFname()
 void CLab2Dlg::OnBnClickedBtnAdd()
 {
 	CSCM scm;
-	scm.Add();
+	CString sname, fname;
+	m_edt_sname.GetWindowTextW(sname);
+	m_edt_fname.GetWindowTextW(fname);
+	scm.Add(sname, fname);
+
 }
 
 
 void CLab2Dlg::OnBnClickedBtnDell()
 {
-	// TODO: добавьте свой код обработчика уведомлений
+	CSCM scm;
+	CString sname;
+	m_edt_sname.GetWindowTextW(sname);
+	scm.Del(sname);
 }
 
 
 void CLab2Dlg::OnBnClickedBtnStart()
 {
-	// TODO: добавьте свой код обработчика уведомлений
+	CSCM scm;
+	CString sname;
+	m_edt_sname.GetWindowTextW(sname);
+	scm.Start(sname);
 }
 
 
 void CLab2Dlg::OnBnClickedBtnStop()
 {
-	// TODO: добавьте свой код обработчика уведомлений
+	CSCM scm;
+	CString sname;
+	m_edt_sname.GetWindowTextW(sname);
+	scm.Stop(sname);
 }
 
 
 void CLab2Dlg::OnBnClickedBtnOpen()
 {
-	// TODO: добавьте свой код обработчика уведомлений
+	CSCM scm;
+	CString sname;
+	m_edt_sname.GetWindowTextW(sname);
+	scm.Open(sname);
 }
 
 
 void CLab2Dlg::OnBnClickedBtnClose()
 {
-	// TODO: добавьте свой код обработчика уведомлений
+	CSCM scm;
+	scm.Close();
 }
+
+
+
