@@ -1,0 +1,8 @@
+﻿  Building 'lab3' with toolset 'WindowsKernelModeDriver10.0' and the 'Desktop' target platform.
+  lab3.c
+  lab3.vcxproj -> C:\_drvlab_\lab3\x64\Debug\lab3.sys
+  Done Adding Additional Store
+  Successfully signed: C:\_drvlab_\lab3\x64\Debug\lab3.sys
+  
+  Inf2Cat task was skipped as there were no inf files to process
+  
