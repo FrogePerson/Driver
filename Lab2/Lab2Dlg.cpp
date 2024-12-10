@@ -14,6 +14,7 @@
 #endif
 
 
+
 // Диалоговое окно CLab2Dlg
 
 
@@ -32,7 +33,7 @@ void CLab2Dlg::print(LPCTSTR pstr)
 void CLab2Dlg::vprint(LPCTSTR pstr, va_list pargs)
 {
 	wchar_t tmp[1024];
-	vswprintf(tmp, pstr, pargs);
+	vswprintf_s(tmp, pstr, pargs);
 	m_lst_log.InsertString(-1, tmp);
 }
 
@@ -41,7 +42,7 @@ void CLab2Dlg::vprintErr(LPCTSTR pstr, va_list pargs)
 	wchar_t tmp[1024];
 	LPVOID lpMsgBuf;
 
-	vswprintf(tmp, pstr, pargs);
+	vswprintf_s(tmp, pstr, pargs);
 
 	FormatMessage(
 		FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_FROM_SYSTEM,
@@ -52,7 +53,7 @@ void CLab2Dlg::vprintErr(LPCTSTR pstr, va_list pargs)
 		0,
 		NULL
 	);
-	wcscat(tmp, (wchar_t*)lpMsgBuf);
+	wcscat_s(tmp, (wchar_t*)lpMsgBuf);
 
 	LocalFree(lpMsgBuf);
 	m_lst_log.InsertString(-1, tmp);
@@ -187,7 +188,7 @@ void CLab2Dlg::OnBnClickedBtnOpen()
 {
 	CSCM scm;
 	CString sname;
-	m_edt_sname.GetWindowTextW(sname);
+	m_edt_lname.GetWindowTextW(sname);
 	scm.Open(sname);
 }
 
